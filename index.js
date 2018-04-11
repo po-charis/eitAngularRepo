@@ -1,20 +1,45 @@
 (function(angular) {
   'use strict';
-angular.module('superModule', ['eitServices'])
-  .controller('AddEitController', ['eitCrud' function InvoiceController(eitCrud) {
-   	this.email = "arinze6@gmail.com";
-    this.firstName = "Arinze";
-    this.lastName = "Christopher";
-    this.gender = 'female';
-    this.dob = new Date("12/1/1992");
+var eitController = angular.module('superModule', ['services']);
+  
+eitController.controller('AddEitController', ['eitCrud', function AddEitController(eitCrud) {
+	this.email = "arinze6@gmail.com";
+	this.firstName = "Arinze";
+	this.lastName = "Christopher";
+	this.gender = 'female';
+	this.dob = new Date("12/1/1992");
+	this.eitRepo = eitCrud.eitRepo;
 
-    // this.total = function total(outCurr) {
-    //   return currencyConverter.convert(this.qty * this.cost, this.inCurr, outCurr);
-    // };
-    // this.pay = function pay() {
-    //   window.alert('Thanks!');
-    // };
-  }]);
+    //this function returns the id of the last item in the list.
+    
+	this.getId = function getId(repo){
+      var length =  this.eitRepo.length;
+      if(length == 0){
+        id=0;
+        return id;
+      }
+      var id = this.eitRepo[(length-1)].id;
+      return id;
+    }
+	
+
+
+
+	this.addEit = function addEit(id, email, firstname, lastname, gender, dob){
+		this.id = this.getId(this.eitRepo) + 1;
+		console.log(this.id);
+		return eitCrud.addEit(this.id, this.email, this.firstName, this.lastName, this.gender, this.dob);
+	};
+	
+
+}]);
+
+eitController.controller('viewAllEitController', ['eitCrud', function viewAllEitController(eitCrud) {
+	this.viewAllEit = function viewAllEit(){
+		return eitCrud.viewAllEit();
+	}
+
+}]);
 })(window.angular);
 
 /*
