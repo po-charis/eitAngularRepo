@@ -5,8 +5,9 @@ angular.module('services', [])
     
     //this list contains all info about all EIT
     var eitRepo = [];
+    var eitId;
+    var oneEit;
     
-
     //the variable id returns gets the id of the last item in the arrayu
     
 
@@ -20,19 +21,39 @@ angular.module('services', [])
         gender: gender,
         dob: dob
       });
-      console.log("Record saved successfully");
+      // console.log("Record saved successfully");
     };
 
     //this function returns the list of all the Eits.
     var viewAllEit = function(){
       return eitRepo;
+    };
+
+    var setAnEit = function(id){
+      eitId = id;
+      // console.log(eitId);
+    };
+
+    var getAnEit= function(){
+      // console.log("seen");
+      for(var counter=0; counter< eitRepo.length; counter++){
+          if( eitId == eitRepo[counter].id){
+            oneEit = eitRepo[counter];
+            // console.log(oneEit);
+            return oneEit;
+
+          }
+      }
     }
 
-
     return {
+     
       eitRepo:eitRepo,
       addEit: addEit,
-      viewAllEit: viewAllEit
+      viewAllEit: viewAllEit,
+      getAnEit:getAnEit,
+       oneEit:oneEit,
+       setAnEit:setAnEit,
     };
   });
 })(window.angular);

@@ -9,6 +9,7 @@ eitController.controller('AddEitController', ['eitCrud', function AddEitControll
 	this.gender = 'female';
 	this.dob = new Date("12/1/1992");
 	this.eitRepo = eitCrud.eitRepo;
+	this.editEit = true;
 
     //this function returns the id of the last item in the list.
     
@@ -27,10 +28,12 @@ eitController.controller('AddEitController', ['eitCrud', function AddEitControll
 
 	this.addEit = function addEit(id, email, firstname, lastname, gender, dob){
 		this.id = this.getId(this.eitRepo) + 1;
-		console.log(this.id);
+		// console.log(this.id);
+		// console.log(eitCrud.oneEit);
 		return eitCrud.addEit(this.id, this.email, this.firstName, this.lastName, this.gender, this.dob);
 	};
-	
+
+
 
 }]);
 
@@ -39,7 +42,28 @@ eitController.controller('viewAllEitController', ['eitCrud', function viewAllEit
 		return eitCrud.viewAllEit();
 	}
 
+	this.setAnEit = function setAnEit(id){
+		// console.log(id);
+		return eitCrud.setAnEit(id);
+		
+	}
+	
+
+
+
 }]);
+
+
+eitController.controller('viewAnEitController', ['eitCrud', function viewAnEitController(eitCrud) {
+	this.getAnEit = function getAnEit(){
+		// var oneEit;
+		// oneEit = {id:"Arinze", email:"as", lastname:"ada", gender:"m"};
+		//console.log(eitCrud.getAnEit());
+		return eitCrud.getAnEit();
+	}
+
+}]);
+
 })(window.angular);
 
 /*

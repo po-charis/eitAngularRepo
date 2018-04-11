@@ -25,6 +25,9 @@
       table{
         border-radius: 7px;
       }
+      .jumbotron{
+        width:100%;
+      }
     </style>
   </head>
   <body ng-app="superModule">
@@ -32,12 +35,12 @@
       <div class="container-fluid">
         <div class="row">
           <div class="jumbotron jumbotron-fluid">
-            <div class="container">
+            <div>
               <h1 class="display-4 text-center">EIT Documentation</h1>
               <p class="lead text-center">Welcome to my EIT page. Here we can Add, Update, Delete and Display Eits. Feel free but don't break my code! :)</p>
             </div>
           </div>
-          <div class="col-md-3"  ng-controller="AddEitController as addEit">
+          <div class="col-md-5"  ng-controller="AddEitController as addEit">
             <div class="text-center eit-headers">
               <h2>Add an EIT</h2>
             </div> 
@@ -81,7 +84,9 @@
                     <label for="dob">Date of Birth:</label>
                     <input type="date" class="form-control" id="dob" ng-model="addEit.dob">
                   </div>
-                  <button type="submit" class="btn btn-info btn-block " ng-click="addEit.addEit()">Add EIT</button>
+                  
+                  <button type="submit" ng-show="addEit" class="btn btn-info btn-block " ng-click="addEit.addEit()">Add EIT</button>
+                  <button type="submit" ng-show="editEit" class="btn btn-info btn-block " ng-click="addEit.editEit()">Edit EIT</button>
               </form> 
                   
                     
@@ -91,37 +96,7 @@
 
                   
          
-
-          <div class="col-md-4">
-            <div class="eit-headers">
-              <h2 class="text-center">View an EIT</h2>
-            </div>
-            <div>
-              <table class="table table-dark">
-                <thead>
-                  <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Gender</th>
-                    
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  
-                </tbody>
-              </table>
-            </div>
-
-          </div>
-
-          <div class="col-md-5" ng-controller="viewAllEitController as viewAll">
+          <div class="col-md-7" ng-controller="viewAllEitController as viewAll">
             <div class="eit-headers">
               <h2 class="text-center">Show All EITs</h2>
             </div>
@@ -144,16 +119,55 @@
                     <th scope="row">{{eits.email}}</th>
                     <th scope="row">{{eits.lastname}}</th>
                     <th scope="row">{{eits.gender}}</th>
-                    <th scope="row"><button class="btn"><i class="fas fa-eye"></i></button></th>
-                    <th scope="row"><button class="btn"><i class="far fa-edit"></i></button></th>
-                    <th scope="row"><button class="btn"><i class="fas fa-trash"></i></button></th>
+                    <th scope="row"><button class="btn" ng-click="viewAll.setAnEit(eits.id)"><i class="fas fa-eye"></i></button></th>
+                    <th scope="row"><button class="btn" ng-click="viewAll.getAnEit()"><i class="far fa-edit"></i></button></th>
+                    <th scope="row"><button class="btn" ng-click="deleteEit(eits.id)"><i class="fas fa-trash"></i></button></th>
                     
                   </tr>
                   
                 </tbody>
               </table>
           </div>
+
+
+
+
+
+          
         </div>
+        <div class="row" ng-controller="viewAnEitController as oneEit">
+          <div class="col-md-4">
+            <div class="eit-headers">
+              <h2 class="text-center">View an EIT</h2>
+            </div>
+            <div>
+              <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Gender</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">{{oneEit.getAnEit().id}}</th>
+                    <td>{{oneEit.getAnEit().email}}</td>
+                    <td>{{oneEit.getAnEit().lastname}}</td>
+                    <td>{{oneEit.getAnEit().gender}}</td>
+                   
+
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+      </div>
       </div>
     </section>
 
