@@ -3,13 +3,20 @@
 var eitController = angular.module('superModule', ['services']);
   
 eitController.controller('AddEitController', ['eitCrud', function AddEitController(eitCrud) {
-	this.email = "arinze6@gmail.com";
-	this.firstName = "Arinze";
-	this.lastName = "Christopher";
-	this.gender = 'female';
-	this.dob = new Date("12/1/1992");
+	
+	this.populate = eitCrud.getEitToEdit();
+	if(this.populate){
+		this.email = this.populate.email;
+		this.firstName = this.populate.firstname;
+		this.lastName = this.populate.lastname;
+		this.gender =  this.populate.gender;
+		this.dob = new Date(this.populate.dob);
+	};
+
 	this.eitRepo = eitCrud.eitRepo;
-	this.editEit = true;
+	this.showAdd = true;
+	this.showEdit = true;
+
 
     //this function returns the id of the last item in the list.
     
@@ -28,10 +35,17 @@ eitController.controller('AddEitController', ['eitCrud', function AddEitControll
 
 	this.addEit = function addEit(id, email, firstname, lastname, gender, dob){
 		this.id = this.getId(this.eitRepo) + 1;
-		// console.log(this.id);
-		// console.log(eitCrud.oneEit);
 		return eitCrud.addEit(this.id, this.email, this.firstName, this.lastName, this.gender, this.dob);
 	};
+
+	this.populateEit = function populateEit(){ 
+		this.populate = eitCrud.getEitToEdit();
+		this.email = this.populate.email;
+		this.firstName = this.populate.firstname;
+		this.lastName = this.populate.lastname;
+		this.gender =  this.populate.gender;
+		this.dob = new Date(this.populate.dob);
+	}
 
 
 
@@ -43,9 +57,11 @@ eitController.controller('viewAllEitController', ['eitCrud', function viewAllEit
 	}
 
 	this.setAnEit = function setAnEit(id){
-		// console.log(id);
 		return eitCrud.setAnEit(id);
-		
+	}
+
+	this.editAnEit = function editAnEit(id){
+		return eitCrud.setEitToEdit(id);
 	}
 	
 
@@ -56,9 +72,6 @@ eitController.controller('viewAllEitController', ['eitCrud', function viewAllEit
 
 eitController.controller('viewAnEitController', ['eitCrud', function viewAnEitController(eitCrud) {
 	this.getAnEit = function getAnEit(){
-		// var oneEit;
-		// oneEit = {id:"Arinze", email:"as", lastname:"ada", gender:"m"};
-		//console.log(eitCrud.getAnEit());
 		return eitCrud.getAnEit();
 	}
 

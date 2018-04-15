@@ -3,10 +3,12 @@
 angular.module('services', [])
   .factory('eitCrud', function() {
     
-    //this list contains all info about all EIT
+    //this list contains info about all EIT
     var eitRepo = [];
     var eitId;
     var oneEit;
+    var eitToEdit;
+    var eitToEditArray;
     
     //the variable id returns gets the id of the last item in the arrayu
     
@@ -21,7 +23,6 @@ angular.module('services', [])
         gender: gender,
         dob: dob
       });
-      // console.log("Record saved successfully");
     };
 
     //this function returns the list of all the Eits.
@@ -34,17 +35,42 @@ angular.module('services', [])
       // console.log(eitId);
     };
 
-    var getAnEit= function(){
-      // console.log("seen");
-      for(var counter=0; counter< eitRepo.length; counter++){
-          if( eitId == eitRepo[counter].id){
-            oneEit = eitRepo[counter];
-            // console.log(oneEit);
-            return oneEit;
+     var setEitToEdit = function(id){
+      eitToEdit = id;
+    };
 
-          }
+    var getAnEit= function(){
+        for(var counter=0; counter< eitRepo.length; counter++){
+            if( eitId == eitRepo[counter].id){
+              oneEit = eitRepo[counter];
+              // console.log(oneEit);
+              return oneEit;
+
+            }
+        }
+      
+    };
+
+    var getEitToEdit = function(){
+      if(eitToEdit){
+        for(var counter=0; counter< eitRepo.length; counter++){
+            if( eitToEdit == eitRepo[counter].id){
+              eitToEditArray = eitRepo[counter];
+              return eitToEditArray;
+
+            }
+        }
       }
-    }
+
+    };
+
+    var updateEit = function(id, data){
+      for(var counter=0; counter < eitRepo.length; counter++){
+        if(id == eitRepo[counter].id){
+          eitRepo[counter] = data;
+        }
+      }
+    };
 
     return {
      
@@ -52,8 +78,12 @@ angular.module('services', [])
       addEit: addEit,
       viewAllEit: viewAllEit,
       getAnEit:getAnEit,
-       oneEit:oneEit,
-       setAnEit:setAnEit,
+      oneEit:oneEit,
+      setAnEit:setAnEit,
+      updateEit:updateEit,
+      getEitToEdit:getEitToEdit,
+      eitToEdit:eitToEdit,
+      setEitToEdit:setEitToEdit,
     };
   });
 })(window.angular);
